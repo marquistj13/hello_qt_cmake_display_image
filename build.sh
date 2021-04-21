@@ -1,5 +1,5 @@
 #!/bin/bash
-#rm -rf build
+rm -rf build
 DIR=`pwd`
 mkdir build
 cd build
