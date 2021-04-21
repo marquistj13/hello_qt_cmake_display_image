@@ -1,16 +1,53 @@
 #include "mycamera.h"
 #include <QFileDialog>
+#include <QDebug>
 
 MyCamera::MyCamera(QMainWindow *parent)
   :QMainWindow(parent),ui(new Ui::MainWindow)
 {
+  qDebug()<<"MyCamera in Thread "<<this->QObject::thread()->currentThreadId();
   ui->setupUi(this);
+  
+  // The thread and the worker are created in the constructor so it is always safe to delete them.
+  thread = new QThread();
+  worker = new Worker();
+
+  worker->moveToThread(thread);
+  connect(worker, SIGNAL(valueChanged(QString)), ui->label, SLOT(setText(QString)));
+  connect(worker, SIGNAL(workRequested()), thread, SLOT(start()));
+  connect(thread, SIGNAL(started()), worker, SLOT(doWork()));
+  connect(worker, SIGNAL(finished()), thread, SLOT(quit()), Qt::DirectConnection);
 }
 
 MyCamera::~MyCamera(){
+  worker->abort();
+  thread->wait();
+  qDebug()<<"Deleting thread and worker in Thread "<<this->QObject::thread()->currentThreadId();
+  delete thread;
+  delete worker;
+
   delete ui;
 }
 
+void MyCamera::closeEvent(QCloseEvent *event){
+  qDebug()<<"Closing MyCamera ";
+  worker->abort();
+  thread->wait();
+  qDebug()<<"Deleting thread and worker in Thread "<<this->QObject::thread()->currentThreadId();
+  delete thread;
+  delete worker;
+
+  delete ui;
+}
+
+void MyCamera::on_startThread_clicked()
+{
+  // To avoid having two threads running simultaneously, the previous thread is aborted.
+  worker->abort();
+  thread->wait(); // If the thread is not running, this will immediately return.
+
+  worker->requestWork();
+}
 void MyCamera::on_openCamera_clicked()
 {
      //调用窗口打开文件

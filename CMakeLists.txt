@@ -31,7 +31,7 @@ ${OpenCV_INCLUDE_DIRS}
 )
 
 # Tell CMake to create the helloworld executable
-add_executable(helloworld main.cpp mycamera.cpp)
+add_executable(helloworld main.cpp mycamera.cpp worker.cpp)
 
 # Add the Qt5 Widgets for linking
 target_link_libraries(helloworld Qt5::Widgets ${OpenCV_LIBS})

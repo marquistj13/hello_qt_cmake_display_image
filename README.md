@@ -1,5 +1,5 @@
 # A minimal qt example with cmake
-use qt to display opencv image
+use qt to display opencv image and how to use QThread
 
 Most of the code is borrowed from the Internet.
 ## How to use this code
@@ -18,3 +18,6 @@ In this code, we use the **Using a Pointer Member Variable** method of **The Sin
 
 1. In the `CMakeLists.txt` file, we set the `CMAKE_AUTOMOC` option, so according to  [AUTOUIC](https://cmake.org/cmake/help/latest/prop_tgt/AUTOUIC.html), when we use `#include "ui_cameras.h"` in `mycamera.h`, `AUTOUIC` will try to find `cameras.ui` in the folder and generate `ui_cameras.h` in the build directory.
 2. we have a `openCamera` button in `cameras.ui`. If we want to write a slot to process the clicke event, we only need to write `void on_<object name>_<signal name>(<signal parameters>);`, it wil use QMetaObject's auto-connection facilities to connect the OK button's clicked() signal to a slot in our subclass. (this is also in [Using a Designer UI File in Your Application](http://www.bim-times.com/qt/Qt-5.11.1/qtdesigner/designer-using-a-ui-file.html))
+
+## QThread use tips
+See [Qt thread: simple, complete and stable (with full sources on GitHub)](https://fabienpn.wordpress.com/2013/05/01/qt-thread-simple-and-stable-with-sources/) and [it'code](https://github.com/fabienpn/simple-qt-thread-example).

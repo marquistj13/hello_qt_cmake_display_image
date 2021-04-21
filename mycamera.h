@@ -6,6 +6,8 @@
 using namespace cv;
 
 #include <QMessageBox>
+#include <QThread>
+#include "worker.h"
 
 class MyCamera: public QMainWindow
 {
@@ -17,10 +19,20 @@ public:
 
 private:
   QImage mat2QImage(cv::Mat& mat);
+  void closeEvent (QCloseEvent *event);
 private slots:
   void on_openCamera_clicked();
+  void on_startThread_clicked();
 
 private:
   Ui::MainWindow *ui;
   Mat image;
+  /**
+   * @brief Thread object which will let us manipulate the running thread
+   */
+  QThread *thread;
+  /**
+   * @brief Object which contains methods that should be runned in another thread
+   */
+  Worker *worker;
 };
