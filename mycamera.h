@@ -23,6 +23,7 @@ private:
 private slots:
   void on_openCamera_clicked();
   void on_startThread_clicked();
+  void on_startPlot_clicked();
 
 private:
   Ui::MainWindow *ui;

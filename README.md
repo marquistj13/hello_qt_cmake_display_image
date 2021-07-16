@@ -21,3 +21,10 @@ In this code, we use the **Using a Pointer Member Variable** method of **The Sin
 
 ## QThread use tips
 See [Qt thread: simple, complete and stable (with full sources on GitHub)](https://fabienpn.wordpress.com/2013/05/01/qt-thread-simple-and-stable-with-sources/) and [it'code](https://github.com/fabienpn/simple-qt-thread-example).
+
+
+## QCustomPlot use 
+1. include the QCustomPlot widgets in the .ui file
+The offical QCustomPlot tutorial uses qtcreater as example [Setting up QCustomPlot](https://www.qcustomplot.com/index.php/tutorials/settingup), since we don't use qtcreater, we use qt designer, thus we can follow the similar steps at [Using Custom Widgets with Qt Designer](https://doc.qt.io/qt-5/designer-using-custom-widgets.
+2. cmake adapt
+We should add `PrintSupport` in the cmake file.

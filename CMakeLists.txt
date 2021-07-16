@@ -20,7 +20,7 @@ if(WIN32)
 endif()
 
 # Find the QtWidgets library
-find_package(Qt5 REQUIRED COMPONENTS Widgets )
+find_package(Qt5 REQUIRED COMPONENTS Widgets PrintSupport)
 
 find_package(OpenCV  REQUIRED)
 
@@ -30,8 +30,11 @@ ${PROJECT_SOURCE_DIR}/include
 ${OpenCV_INCLUDE_DIRS}
 )
 
+add_library(qcustomplot qcustomplot.cpp)
+target_link_libraries(qcustomplot Qt5::Widgets Qt5::PrintSupport)
+
 # Tell CMake to create the helloworld executable
-add_executable(helloworld main.cpp mycamera.cpp worker.cpp)
+add_executable(helloworld main.cpp mycamera.cpp worker.cpp )
 
 # Add the Qt5 Widgets for linking
-target_link_libraries(helloworld Qt5::Widgets ${OpenCV_LIBS})
+target_link_libraries(helloworld Qt5::Widgets ${OpenCV_LIBS} qcustomplot )

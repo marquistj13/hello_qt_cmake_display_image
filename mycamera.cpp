@@ -48,6 +48,29 @@ void MyCamera::on_startThread_clicked()
 
   worker->requestWork();
 }
+
+void MyCamera::on_startPlot_clicked()
+{
+  // generate some data:
+  QVector<double> x(101), y(101); // initialize with entries 0..100
+  for (int i=0; i<101; ++i)
+    {
+      x[i] = i/50.0 - 1; // x goes from -1 to 1
+      y[i] = x[i]*x[i];  // let's plot a quadratic function
+    }
+
+  auto customPlot=ui->customPlot;
+  // create graph and assign data to it:
+  customPlot->addGraph();
+  customPlot->graph(0)->setData(x, y);
+  // give the axes some labels:
+  customPlot->xAxis->setLabel("x");
+  customPlot->yAxis->setLabel("y");
+  // set axes ranges, so we see all data:
+  customPlot->xAxis->setRange(-1, 1);
+  customPlot->yAxis->setRange(0, 1);  
+  ui->customPlot->replot();
+}
 void MyCamera::on_openCamera_clicked()
 {
      //调用窗口打开文件
@@ -105,7 +128,8 @@ QImage MyCamera::mat2QImage(cv::Mat& mat)
 		const uchar *pSrc = (const uchar*)mat.data;
 		// Create QImage with same dimensions as input Mat
 		QImage image(pSrc, mat.cols, mat.rows, mat.step, QImage::Format_RGB888);
-		return image.rgbSwapped();
+		//return image.rgbSwapped();
+    return image;
 	}
 	else if(mat.type() == CV_8UC4)
 	{
