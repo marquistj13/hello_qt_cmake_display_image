@@ -30,11 +30,4 @@ ${PROJECT_SOURCE_DIR}/include
 ${OpenCV_INCLUDE_DIRS}
 )
 
-add_library(qcustomplot qcustomplot.cpp)
-target_link_libraries(qcustomplot Qt5::Widgets Qt5::PrintSupport)
-
-# Tell CMake to create the helloworld executable
-add_executable(helloworld main.cpp mycamera.cpp worker.cpp )
-
-# Add the Qt5 Widgets for linking
-target_link_libraries(helloworld Qt5::Widgets ${OpenCV_LIBS} qcustomplot )
+add_subdirectory(${PROJECT_SOURCE_DIR}/src)

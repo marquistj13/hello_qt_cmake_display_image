@@ -28,3 +28,11 @@ See [Qt thread: simple, complete and stable (with full sources on GitHub)](https
 The offical QCustomPlot tutorial uses qtcreater as example [Setting up QCustomPlot](https://www.qcustomplot.com/index.php/tutorials/settingup), since we don't use qtcreater, we use qt designer, thus we can follow the similar steps at [Using Custom Widgets with Qt Designer](https://doc.qt.io/qt-5/designer-using-custom-widgets.
 2. cmake adapt
 We should add `PrintSupport` in the cmake file.
+3. qcustomplot will be compiled every time when you `make`, so you can move the generated libqcustomplot.so to  /usr/local/lib, and comment the following two lines in the `src/CMakeLists.txt`
+```cmake
+add_library(qcustomplot SHARED qcustomplot.cpp)
+target_link_libraries(qcustomplot Qt5::Widgets Qt5::PrintSupport)
+```
+
+## about file directory structure
+I am not a QT or CMake expert, and I experiment several times, and found that, `cameras.ui`, `mycamera.h` and `worker.h` should be in the same folder with mycamera.cpp in the `src` folder.
